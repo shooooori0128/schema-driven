@@ -1,0 +1,23 @@
+openapi: 3.0.3
+servers:
+  - url: 'http://localhost:3000'
+info:
+  version: 1.0.0
+  title: API仕様サンプル
+  description: API仕様サンプルです
+  contact:
+    name: shooooori0128
+    url: 'https://github.com/shooooori0128'
+tags:
+  - name: users
+paths:
+  /users:
+    $ref: './resources/users/paths/requestUsers.yaml'
+  /users/{id}:
+    $ref: './resources/users/paths/requestUserById.yaml'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

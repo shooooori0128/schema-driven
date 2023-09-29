@@ -1,0 +1,7 @@
+{
+  "summary": "サーバーエラー",
+  "value": {
+    "code": 500,
+    "message": "Error occurred"
+  }
+}

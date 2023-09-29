@@ -1,0 +1,5 @@
+name: user_name
+in: query
+schema:
+  description: ユーザー名
+  type: string

@@ -1,0 +1,16 @@
+description: 汎用エラーレスポンス
+type: object
+required:
+  - code
+  - message
+properties:
+  code:
+    description: ステータスコード
+    type: number
+    example: 500
+    nullable: false
+  message:
+    description: エラーメッセージ
+    type: string
+    example: Error occurred
+    nullable: false

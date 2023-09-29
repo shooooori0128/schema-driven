@@ -1,0 +1,43 @@
+description: ユーザー情報
+type: object
+required:
+  - address
+  - name
+  - email
+  - tel
+  - role
+properties:
+  address:
+    description: 住所
+    type: string
+    example: 東京都千代田区丸の内2-4-1
+    nullable: false
+
+  name:
+    description: 名前
+    type: string
+    example: パーソル 太郎
+    nullable: false
+
+  email:
+    description: メールアドレス
+    type: string
+    format: email
+    example: example@example.com
+    nullable: false
+
+  tel:
+    description: 電話番号
+    type: string
+    pattern: '^\d{2}-\d{4}-\d{4}$'
+    example: 03-1234-5678
+    nullable: false
+
+  role:
+    description: 権限
+    type: string
+    enum:
+      - Admin
+      - Member
+    example: Member
+    nullable: false

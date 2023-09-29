@@ -1,0 +1,11 @@
+description: ユーザー情報
+type: object
+required:
+  - users
+properties:
+  users:
+    description: ユーザー一覧
+    type: array
+    nullable: false
+    items:
+      $ref: './User.yaml'

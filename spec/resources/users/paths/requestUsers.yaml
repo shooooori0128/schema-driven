@@ -1,0 +1,27 @@
+get:
+  operationId: show-users
+  summary: ユーザー情報一覧の取得
+  description: 指定された検索条件に一致するユーザーを取得します。
+  tags:
+    - users
+  parameters:
+    - $ref: '../parameters/UserName.yaml'
+  responses:
+    '200':
+      description: 成功
+      content:
+        application/json:
+          schema:
+            $ref: '../models/Users.yaml'
+          examples:
+            Users:
+              $ref: '../examples/Users.json'
+    '500':
+      description: 内部エラー
+      content:
+        application/json:
+          schema:
+            $ref: '../../../common/models/CommonError.yaml'
+          examples:
+            Error500:
+              $ref: '../../../common/examples/CommonError500.json'

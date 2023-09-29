@@ -1,0 +1,29 @@
+get:
+  operationId: show-user-by-id
+  summary: ユーザー情報の取得
+  description: 指定されたIDのユーザー情報を取得します。
+  tags:
+    - users
+  parameters:
+    - $ref: '../../../common/parameters/Id.yaml'
+  responses:
+    '200':
+      description: 成功
+      content:
+        application/json:
+          schema:
+            $ref: '../models/User.yaml'
+          examples:
+            AdminUser:
+              $ref: '../examples/AdminUser.json'
+            MemberUser:
+              $ref: '../examples/MemberUser.json'
+    '500':
+      description: 内部エラー
+      content:
+        application/json:
+          schema:
+            $ref: '../../../common/models/CommonError.yaml'
+          examples:
+            Error500:
+              $ref: '../../../common/examples/CommonError500.json'

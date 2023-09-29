@@ -1,0 +1,197 @@
+openapi: 3.0.3
+info:
+  version: 1.0.0
+  title: API仕様サンプル
+  description: API仕様サンプルです
+  contact:
+    name: shooooori0128
+    url: https://github.com/shooooori0128
+servers:
+  - url: http://localhost:3000
+tags:
+  - name: users
+paths:
+  /users:
+    get:
+      operationId: show-users
+      summary: ユーザー情報一覧の取得
+      description: 指定された検索条件に一致するユーザーを取得します。
+      tags:
+        - users
+      parameters:
+        - $ref: '#/components/parameters/UserName'
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Users'
+              examples:
+                Users:
+                  $ref: '#/components/examples/Users'
+        '500':
+          description: 内部エラー
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+              examples:
+                Error500:
+                  $ref: '#/components/examples/CommonError500'
+  /users/{id}:
+    get:
+      operationId: show-user-by-id
+      summary: ユーザー情報の取得
+      description: 指定されたIDのユーザー情報を取得します。
+      tags:
+        - users
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              examples:
+                AdminUser:
+                  $ref: '#/components/examples/AdminUser'
+                MemberUser:
+                  $ref: '#/components/examples/MemberUser'
+        '500':
+          description: 内部エラー
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+              examples:
+                Error500:
+                  $ref: '#/components/examples/CommonError500'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters:
+    UserName:
+      name: user_name
+      in: query
+      schema:
+        description: ユーザー名
+        type: string
+    Id:
+      name: id
+      in: path
+      required: true
+      schema:
+        description: DB ID
+        type: integer
+  schemas:
+    User:
+      description: ユーザー情報
+      type: object
+      required:
+        - address
+        - name
+        - email
+        - tel
+        - role
+      properties:
+        address:
+          description: 住所
+          type: string
+          example: 東京都千代田区丸の内2-4-1
+          nullable: false
+        name:
+          description: 名前
+          type: string
+          example: パーソル 太郎
+          nullable: false
+        email:
+          description: メールアドレス
+          type: string
+          format: email
+          example: example@example.com
+          nullable: false
+        tel:
+          description: 電話番号
+          type: string
+          pattern: ^\d{2}-\d{4}-\d{4}$
+          example: 03-1234-5678
+          nullable: false
+        role:
+          description: 権限
+          type: string
+          enum:
+            - Admin
+            - Member
+          example: Member
+          nullable: false
+    Users:
+      description: ユーザー情報
+      type: object
+      required:
+        - users
+      properties:
+        users:
+          description: ユーザー一覧
+          type: array
+          nullable: false
+          items:
+            $ref: '#/components/schemas/User'
+    CommonError:
+      description: 汎用エラーレスポンス
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          description: ステータスコード
+          type: number
+          example: 500
+          nullable: false
+        message:
+          description: エラーメッセージ
+          type: string
+          example: Error occurred
+          nullable: false
+  examples:
+    Users:
+      summary: ユーザー一覧
+      value:
+        users:
+          - address: 東京都千代田区丸の内2-4-1
+            name: パーソル 一郎
+            email: taro.persol@example.com
+            tel: 03-1234-5678
+            role: Admin
+          - address: 東京都千代田区丸の内2-4-1
+            name: パーソル 二郎
+            email: taro.persol@example.com
+            tel: 03-1234-5678
+            role: Member
+    CommonError500:
+      summary: サーバーエラー
+      value:
+        code: 500
+        message: Error occurred
+    AdminUser:
+      summary: 管理者権限のユーザー
+      value:
+        address: 東京都千代田区丸の内2-4-1
+        name: パーソル 一郎
+        email: taro.persol@example.com
+        tel: 03-1234-5678
+        role: Admin
+    MemberUser:
+      summary: メンバー権限のユーザー
+      value:
+        address: 東京都千代田区丸の内2-4-1
+        name: パーソル 二郎
+        email: taro.persol@example.com
+        tel: 03-1234-5678
+        role: Member

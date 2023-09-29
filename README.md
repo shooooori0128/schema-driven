@@ -1,38 +1,33 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# OpenAPI × Orval × MSW × Next.js スキーマ駆動開発実践 〜 25新卒向け勉強会資料 〜
 
-## Getting Started
+## 参考記事
 
-First, run the development server:
+- [元記事（orvalのmswモックコードの生成箇所については情報古いです）](https://techtekt.persol-career.co.jp/entry/tech/221215_01)
+- [mswについてもっと理解を深めたい時に読む記事](https://techtekt.persol-career.co.jp/entry/tech/221214_01)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+## spec directory architecture
+
+```yaml
+spec/
+├── common                           # 共通ファイル
+│   ├── examples                     # レスポンスサンプル（モックでも使用）
+│   │   └── CommonError500.json
+│   ├── models                       # レスポンスのスキーマ定義
+│   │   └── CommonError.yaml
+│   └── parameters                   # クエリパラメータ
+│       └── Id.yaml
+├── resources                        # リソース別のディレクトリ
+│   └── users                        # `https://example.com/users` に関連するAPIドキュメント
+│       ├── examples
+│       │   ├── AdminUser.json
+│       │   ├── MemberUser.json
+│       │   └── Users.json
+│       ├── models
+│       │   ├── User.yaml
+│       │   └── Users.yaml
+│       └── paths
+│           ├── RequestUserById.yaml # `https://example.com/users/${id}` のリクエストに関わるAPIドキュメント
+│           └── RequestUsers.yaml    # `https://example.com/users` のリクエストに関わるAPIドキュメント
+├── specification.bundled.yaml       # refを解決して1つのOpenAPIファイルにしたファイル
+└── specification.yaml
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.

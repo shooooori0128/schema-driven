@@ -1,0 +1,10 @@
+{
+  "summary": "メンバー権限のユーザー",
+  "value": {
+    "address": "東京都千代田区丸の内2-4-1",
+    "name": "パーソル 二郎",
+    "email": "taro.persol@example.com",
+    "tel": "03-1234-5678",
+    "role": "Member"
+  }
+}
